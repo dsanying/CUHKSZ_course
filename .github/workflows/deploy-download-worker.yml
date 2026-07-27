@@ -1,0 +1,39 @@
+name: 部署蓝奏云下载服务
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "worker/**"
+      - ".github/workflows/deploy-download-worker.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: 部署 Cloudflare Worker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: 安装 Worker 依赖
+        working-directory: worker
+        run: npm ci
+
+      - name: 发布下载服务
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npm run deploy

@@ -281,16 +281,7 @@ function CourseFilter({
 }
 
 function getDownloadUrl(file: ResourceFile) {
-  const sourceUrl = file.lanzouUrl || file.downloadUrl || ""
-  const resolverUrl = import.meta.env.VITE_DOWNLOAD_RESOLVER_URL?.trim()
-
-  if (sourceUrl && resolverUrl) {
-    const url = new URL(resolverUrl)
-    url.searchParams.set("url", sourceUrl)
-    return url.toString()
-  }
-
-  return sourceUrl
+  return file.downloadUrl || file.lanzouUrl || ""
 }
 
 function FileDownloadButton({ file }: { file: ResourceFile }) {

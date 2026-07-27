@@ -2,8 +2,6 @@
 
 这是部署到 GitHub Pages 的前端站点。GitHub 只保存站点源码、索引清单和说明；课程资料文件存储在普通蓝奏云。
 
-下载按钮通过仓库内 `worker/` 的解析服务实时获取蓝奏云临时地址，并以附件响应流式传回文件。因此浏览器会直接开始下载，不再打开蓝奏云分享页。
-
 常用命令：
 
 ```bash
@@ -13,8 +11,7 @@ npm run generate:manifest
 npm run sync:lanzou:classic
 ```
 
-下载页只读取 `site/public/lanzou-manifest.json` 中的蓝奏云普通版链接。
-GitHub Actions 通过仓库变量 `DOWNLOAD_RESOLVER_URL` 注入解析服务地址；不再生成 GitHub raw、jsDelivr 或 Release 压缩包下载地址。
+下载页只读取 `site/public/lanzou-manifest.json` 中的蓝奏云普通版链接；不再生成 GitHub raw、jsDelivr 或 Release 压缩包下载地址。
 
 ## 普通蓝奏云同步
 
@@ -36,7 +33,7 @@ npm run sync:lanzou:classic
 - `LANZOU_UPLOAD_CHANGED=true`：只同步当前清单尚未记录的新路径，并清理已改名或已删除的旧路径。
 - `LANZOU_CLASSIC_SPLIT_SIZE`：超限文件分片大小，默认约 `95M`。
 
-普通蓝奏云免费账号的后台直链接口返回“未开放”，因此清单只保存稳定分享链接；真正的临时下载地址在用户点击时由解析服务获取。
+普通蓝奏云免费账号的后台直链接口返回“未开放”，因此清单只保存稳定分享链接。
 
 整理 Blackboard 下载内容时，先运行只读审计，再显式执行删除和重命名：
 

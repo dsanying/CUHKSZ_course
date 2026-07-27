@@ -87,6 +87,12 @@ async function fetchText(url, init) {
     throw new Error(`蓝奏云请求失败（${response.status}）`)
   }
 
+  if (response.headers.get("Content-Encoding") === "gzip" && response.body) {
+    return new Response(
+      response.body.pipeThrough(new DecompressionStream("gzip")),
+    ).text()
+  }
+
   return response.text()
 }
 

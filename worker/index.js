@@ -138,7 +138,7 @@ export async function resolveLanzouDownload(shareUrl) {
   })
   const location = gatewayResponse.headers.get("Location")
   if (gatewayResponse.status < 300 || gatewayResponse.status >= 400 || !location) {
-    throw new Error("蓝奏云暂时没有返回下载地址")
+    throw new Error(`蓝奏云暂时没有返回下载地址（${gatewayResponse.status}）`)
   }
 
   const downloadUrl = new URL(location, gatewayUrl)

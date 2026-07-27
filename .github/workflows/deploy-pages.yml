@@ -41,6 +41,8 @@ jobs:
 
       - name: 构建 GitHub Pages 站点
         working-directory: site
+        env:
+          VITE_DOWNLOAD_RESOLVER_URL: ${{ vars.DOWNLOAD_RESOLVER_URL }}
         run: npm run build
 
       - name: 配置 GitHub Pages

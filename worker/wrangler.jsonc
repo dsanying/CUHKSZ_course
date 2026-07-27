@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cuhksz-source-download",
+  "main": "index.js",
+  "compatibility_date": "2026-07-14",
+  "observability": {
+    "enabled": true
+  }
+}
